@@ -78,19 +78,21 @@ function Header({ data }: { data: ResumeData }) {
             {data.title}
           </div>
         )}
-        <div className="mt-3 grid grid-cols-2 gap-x-8 gap-y-1" style={{ fontSize: '10pt' }}>
+        {/* Single column: each item on its own line; optional links (website/github/linkedin)
+            only appear when present, shown as a short clickable label instead of the raw URL. */}
+        <div className="mt-3 flex flex-col gap-y-1" style={{ fontSize: '10pt' }}>
           {data.email && <Contact icon={Mail} text={data.email} href={`mailto:${data.email}`} />}
           {data.phone && (
             <Contact icon={Phone} text={data.phone} href={`tel:${data.phone.replace(/[^\d+]/g, '')}`} />
           )}
           {data.location && <Contact icon={MapPin} text={data.location} />}
-          {data.website && (
-            <Contact icon={Globe} text={data.fullName || 'Portfolio'} href={ensureUrl(data.website)} />
-          )}
-          {data.github && <Contact icon={GithubIcon} text={data.github} href={ensureUrl(data.github)} />}
           {data.linkedin && (
-            <Contact icon={LinkedinIcon} text={data.linkedin} href={ensureUrl(data.linkedin)} />
+            <Contact icon={LinkedinIcon} text="LinkedIn" href={ensureUrl(data.linkedin)} />
           )}
+          {data.website && (
+            <Contact icon={Globe} text="Portfolio" href={ensureUrl(data.website)} />
+          )}
+          {data.github && <Contact icon={GithubIcon} text="GitHub" href={ensureUrl(data.github)} />}
         </div>
       </div>
       {data.photoUrl && (
