@@ -69,13 +69,15 @@ function Header({ data }: { data: ResumeData }) {
     <header className="flex items-start justify-between gap-6">
       <div className="flex-1">
         <h1 style={{ color: 'var(--resume-accent)', fontSize: '26pt', lineHeight: 1.1 }}>
-          {data.fullName}{' '}
-          {data.title && (
-            <span style={{ fontStyle: 'italic', color: 'var(--resume-muted)', fontSize: '15pt' }}>
-              {data.title}
-            </span>
-          )}
+          {data.fullName}
         </h1>
+        {data.title && (
+          <div
+            style={{ fontStyle: 'italic', color: 'var(--resume-muted)', fontSize: '15pt', marginTop: '2pt' }}
+          >
+            {data.title}
+          </div>
+        )}
         <div className="mt-3 grid grid-cols-2 gap-x-8 gap-y-1" style={{ fontSize: '10pt' }}>
           {data.email && <Contact icon={Mail} text={data.email} href={`mailto:${data.email}`} />}
           {data.phone && (
