@@ -1,9 +1,14 @@
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import { json, urlencoded } from "express";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  // Disable Nest's default body parser so we can raise the JSON size limit — resume photos
+  // are posted inline as base64 data URLs, and the 100kb default rejects them with a 413.
+  const app = await NestFactory.create(AppModule, { bodyParser: false });
+  app.use(json({ limit: "15mb" }));
+  app.use(urlencoded({ extended: true, limit: "15mb" }));
 
   app.setGlobalPrefix("api/v1");
 
